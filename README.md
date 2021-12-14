@@ -1,9 +1,9 @@
 ## Build a React application with the following two screens:
 
 - [x] 1. Rating Information
-[Imgur](https://imgur.com/H9VKAcd)
+![Screenshot](Screen Shot 2021-12-14 at 3.23.59 PM.png)
 - [x] 2. Quote Overview
-[Imgur](https://imgur.com/oa4nFyL)
+![Screenshot](Screen Shot 2021-12-14 at 3.24.09 PM.png)
 ## Running the App:
 
 After cloning the repo, cd into the directory and, in the terminal, run the following commands:
