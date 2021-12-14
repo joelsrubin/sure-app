@@ -6,6 +6,11 @@
 - [x] 2. Quote Overview
      <img width="500" alt="Screen Shot 2021-12-14 at 3 24 09 PM" src="https://user-images.githubusercontent.com/68345201/146082992-2873bb0b-dc15-4901-9716-c0e24eb98260.png">
 
+## View the App:
+
+The app can be viewed here: https://suspicious-haibt-5dcf5e.netlify.app/
+or can be deployed locally by following the instructions below.
+
 ## Running the App:
 
 After cloning the repo, cd into the directory and, in the terminal, run the following commands:
