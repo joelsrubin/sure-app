@@ -1,5 +1,6 @@
 import { getQuote } from '../../API/endpoints';
 import { useState } from 'react';
+import { stateAbbreviationsValidate } from '../../utils';
 
 const initialState = {
   first_name: '',
@@ -22,9 +23,17 @@ export default function RatingInfo({ setQuoteInfo, setPage }) {
 
   // submit formData and navigate to quote overview page
   const submitHandler = async (e) => {
-    e.preventDefault();
     setSubmitting(true);
+    e.preventDefault();
+    const validRegion = stateAbbreviationsValidate(formData.address.region);
+    if (!validRegion) {
+      setErrors({ 'Provide a valid state abbreviation': 'Invalid region' });
+      setSubmitting(false);
+      return;
+    }
+
     const res = await getQuote(formData);
+
     if (res.errors) {
       setErrors(res.errors);
       setSubmitting(false);
@@ -69,7 +78,10 @@ export default function RatingInfo({ setQuoteInfo, setPage }) {
   return (
 
     <>
-      <h1 className="overview-header">Rating Info Page</h1>
+      <div className="overview-header-container">
+        <button className="get-started-btn" onClick={() => setPage('')}>Back</button>
+        <h1 className="overview-header">Rating Info</h1>
+      </div>
       <div className="errors">
         {Object.entries(errors).map(([key, value], i) => {
           return (
@@ -101,7 +113,7 @@ export default function RatingInfo({ setQuoteInfo, setPage }) {
           </div>
           <div className="form-cell">
             <label htmlFor="region">Region</label>
-            <input type="text" name="region" required value={region} maxLength="2" onChange={(e) => addressHandler(e)} placeholder="Provide a US State Abbreviation" />
+            <input type="text" name="region" required value={region} maxLength="2" onChange={(e) => addressHandler(e)} placeholder="Provide a US State Abbreviation" autocapitalize="characters" />
           </div>
           <div className="form-cell">
             <label htmlFor="postal">Zip Code</label>

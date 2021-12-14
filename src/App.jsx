@@ -11,7 +11,7 @@ function App() {
 
   const renderView = () => {
     if (page === 'quote') {
-      return <QuoteOverview setPage={setPage} quoteInfo={quoteInfo} setQuoteInfo={setQuoteInfo} />;
+      return <QuoteOverview setPage={setPage} quoteInfo={quoteInfo} setQuoteInfo={setQuoteInfo} setPage={setPage} />;
     }
     if (page === 'rating') {
       return <RatingInfo setQuoteInfo={setQuoteInfo} setPage={setPage} />;
@@ -21,13 +21,16 @@ function App() {
 
   return (
     <div className="App">
-      {!page && (
-        <div className="header">
-          <h1>Welcome to the Insurance Quote App</h1>
-          <button className="get-started-btn" onClick={() => setPage('rating')}>Get started now! 🚀</button>
-        </div>
-      )}
-      {renderView()}
+      <div className="body">
+        {!page && (
+          <div className="header">
+            <h1 className="title">Welcome to the Insurance Quote App</h1>
+            <button className="get-started-btn" onClick={() => setPage('rating')}>Get started now! 🚀</button>
+          </div>
+        )}
+        {renderView()}
+      </div>
+      <footer />
     </div>
   );
 }

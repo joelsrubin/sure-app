@@ -1,7 +1,7 @@
 ### Build a React application with the following two screens:
 
-1. Rating Information [x]
-2. Quote Overview [x]
+- [x] 1. Rating Information
+- [x] 2. Quote Overview
 
 ### Running the App:
 
@@ -54,6 +54,8 @@ This is the deductible limit for the policy.
 - [x] `asteroid_collision`
 
 This is the coverage limit for damages from asteroid collisions.
+
+- [x] The default selections for these dropdowns should be the first value in `quote.variable_options[name].values`.
 
 - [x] Use the `title`, `description`, and `values` fields to display the available coverage options.
 

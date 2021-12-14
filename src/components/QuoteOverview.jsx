@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { updateQuote } from '../../API/endpoints';
 
-export default function QuoteOverview({ quoteInfo, setQuoteInfo }) {
+export default function QuoteOverview({ quoteInfo, setQuoteInfo, setPage }) {
 
   const { quote } = quoteInfo;
 
@@ -11,9 +11,11 @@ export default function QuoteOverview({ quoteInfo, setQuoteInfo }) {
   // destructuring variable_options object
   const { asteroid_collision, deductible } = variable_options;
 
+
+  // initialize state with the first value in the values array
   const [varSelections, setVarSelections] = useState({
-    deductible: variable_selections.deductible,
-    asteroid_collision: variable_selections.asteroid_collision
+    deductible: deductible.values[0],
+    asteroid_collision: asteroid_collision.values[0],
   });
 
 
@@ -27,7 +29,7 @@ export default function QuoteOverview({ quoteInfo, setQuoteInfo }) {
 
 
   const updateQuotes = async () => {
-    console.log('fetching...');
+
     const data = {
       quoteId,
       rating_address,
@@ -47,45 +49,44 @@ export default function QuoteOverview({ quoteInfo, setQuoteInfo }) {
   }, [varSelections]);
 
 
+  const selectData = [variable_options.asteroid_collision, variable_options.deductible];
 
   return (
     <div className="overview">
-      <h1 className="overview-header">Quote Overview Page</h1>
+      <div className="overview-header-container">
+        <button className="get-started-btn" onClick={() => setPage('rating')}>Back</button>
+        <h1 className="overview-header">Quote Overview Page</h1>
+      </div>
       <div className="overview-container">
         <div className="overview-cell">
-          <div>${variable_selections.asteroid_collision}
+          <div>${variable_selections.asteroid_collision.toLocaleString('us-EN')}
           </div>
           <h4> Asteroid Collision Selection </h4>
         </div>
         <div className="overview-cell">
-          <div>${premium}
+          <div>${premium.toLocaleString('us-EN')}
           </div>
           <h4> Premium</h4>
         </div>
         <div className="overview-cell">
-          <div>${variable_selections.deductible}
+          <div>${variable_selections.deductible.toLocaleString('us-EN')}
           </div>
           <h4> Deductible</h4>
         </div>
       </div>
       <div className="overview-container">
-        <div className="overview-cell">
-          <select id="asteroid-collision-select" name="asteroid_collision" onChange={(e) => handleChange(e)}>
-            {variable_options.asteroid_collision.values.map((value) => (
-              <option key={value} value={value}>{value}</option>
-            ))}
-          </select>
-          <label htmlFor="asteroid-collision-select">{variable_options.asteroid_collision.title}</label>
-        </div>
-        <div className="overview-cell">
-          <select id="deductible-select" name="deductible" onChange={(e) => handleChange(e)}>
-            {variable_options.deductible.values.map((value) => (
-              <option key={value} value={value}>{value}</option>
-            ))}
-          </select>
-          <label htmlFor="deductible-select">{variable_options.deductible.title}</label>
-        </div>
+        {selectData.map((data, i) => (
+          <div className="overview-cell">
+            <label htmlFor="asteroid-collision-select">{data.title}</label>
+            <select id="asteroid-collision-select" name="asteroid_collision" onChange={(e) => handleChange(e)}>
+              {data.values.map((value) => (
+                <option key={value} value={value}>${value.toLocaleString('en-US')}</option>
+              ))}
+            </select>
+            <p>{data.description}</p>
+          </div>
+        ))}
       </div>
-    </div>
+    </div >
   );
 };
