@@ -15,7 +15,7 @@ After cloning the repo, cd into the directory and, in the terminal, run the foll
 2. `npm run build`
 3. `npm run dev`
 
-To run the test suite, run the following in the terminal:
+To run the Cypress test suite, run the following in the terminal:
 
 4. `npm run test`
 
