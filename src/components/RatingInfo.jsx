@@ -1,6 +1,8 @@
 import { getQuote } from '../../API/endpoints';
 import { useState } from 'react';
 import { stateAbbreviationsValidate } from '../../utils';
+import Form from './Form';
+import Errors from './Errors';
 
 const initialState = {
   first_name: '',
@@ -25,19 +27,24 @@ export default function RatingInfo({ setQuoteInfo, setPage }) {
   const submitHandler = async (e) => {
     setSubmitting(true);
     e.preventDefault();
-    const validRegion = stateAbbreviationsValidate(formData.address.region);
+
+    // validate formData
+    const validRegion = stateAbbreviationsValidate(region.toUpperCase());
     if (!validRegion) {
-      setErrors({ 'Provide a valid state abbreviation': 'Invalid region' });
+      setErrors({ region: 'Invalid region' });
       setSubmitting(false);
       return;
     }
 
     const res = await getQuote(formData);
 
+    // handle errors from API
     if (res.errors) {
       setErrors(res.errors);
       setSubmitting(false);
     } else {
+
+      // set quote info and navigate to quote overview page
       setSubmitting(false);
       setFormData(initialState);
       setQuoteInfo(res.data);
@@ -45,84 +52,39 @@ export default function RatingInfo({ setQuoteInfo, setPage }) {
     }
   };
 
-  // update formData state name lines on input change
-  const nameHandler = (e) => {
-    const { name, value } = e.target;
+  // update formData state on input change
+  const formHandler = (e) => {
     setErrors({});
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-  };
-
-  // update formData state address lines on input change
-  const addressHandler = (e) => {
     const { name, value } = e.target;
-    setErrors({});
-    setFormData({
-      ...formData,
-      address: {
-        ...formData.address,
+    if (name === 'first_name' || name === 'last_name') {
+      setFormData({
+        ...formData,
         [name]: value
-      }
-    });
+      });
+    } else {
+      setFormData({
+        ...formData,
+        address: {
+          ...formData.address,
+          [name]: value
+        }
+      });
+    }
   };
 
-  // format error messages for display
+
+  // format error strings for display
   const formatErrors = (text) => {
     return text.replace('_', ' ');
   };
 
-
-
   return (
-
-    <>
-      <div className="overview-header-container">
-        <button className="get-started-btn" onClick={() => setPage('')}>Back</button>
-        <h1 className="overview-header">Rating Info</h1>
+    <div className="overview">
+      <div className="rating-header-container">
+        <h1 className="rating-header">Rating Info</h1>
       </div>
-      <div className="errors">
-        {Object.entries(errors).map(([key, value], i) => {
-          return (
-            <p key={i}>{formatErrors(value)}: {formatErrors(key)}</p>
-          );
-        })}
-      </div>
-      <form onSubmit={(e) => { submitHandler(e); }}>
-        <div className="rating-info-form">
-          <div className="form-cell">
-            <label htmlFor="first_name">First Name</label>
-            <input type="text" name="first_name" value={first_name} onChange={(e) => nameHandler(e)} />
-          </div>
-          <div className="form-cell">
-            <label htmlFor="last_name">Last Name</label>
-            <input type="text" name="last_name" value={last_name} required onChange={(e) => nameHandler(e)} />
-          </div>
-          <div className="form-cell">
-            <label htmlFor="line_1">Line 1</label>
-            <input type="text" name="line_1" value={line_1} required onChange={(e) => addressHandler(e)} />
-          </div>
-          <div className="form-cell">
-            <label htmlFor="line_2">Line 2</label>
-            <input type="text" placeholder="optional" name="line_2" value={line_2} onChange={(e) => addressHandler(e)} />
-          </div>
-          <div className="form-cell">
-            <label htmlFor="city">City</label>
-            <input type="text" name="city" required value={city} onChange={(e) => addressHandler(e)} />
-          </div>
-          <div className="form-cell">
-            <label htmlFor="region">Region</label>
-            <input type="text" name="region" required value={region} maxLength="2" onChange={(e) => addressHandler(e)} placeholder="Provide a US State Abbreviation" autocapitalize="characters" />
-          </div>
-          <div className="form-cell">
-            <label htmlFor="postal">Zip Code</label>
-            <input type="number" name="postal" required value={postal} minLength="5" maxLength="5" onChange={(e) => addressHandler(e)} />
-          </div>
-        </div>
-        <button className="form-submit">{submitting ? 'Submitting...' : 'Submit!'}</button>
-      </form>
-
-    </>
+      {/* <Errors errors={errors} formatErrors={formatErrors} /> */}
+      <Form formHandler={formHandler} formData={formData} submitHandler={submitHandler} submitting={submitting} errors={errors} />
+    </div>
   );
 };

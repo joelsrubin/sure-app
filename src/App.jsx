@@ -11,7 +11,7 @@ function App() {
 
   const renderView = () => {
     if (page === 'quote') {
-      return <QuoteOverview setPage={setPage} quoteInfo={quoteInfo} setQuoteInfo={setQuoteInfo} setPage={setPage} />;
+      return <QuoteOverview setPage={setPage} quoteInfo={quoteInfo} setQuoteInfo={setQuoteInfo} />;
     }
     if (page === 'rating') {
       return <RatingInfo setQuoteInfo={setQuoteInfo} setPage={setPage} />;
@@ -30,7 +30,6 @@ function App() {
         )}
         {renderView()}
       </div>
-      <footer />
     </div>
   );
 }

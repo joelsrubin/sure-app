@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color: #0c2975;
+  background-color: #284aa2;
   color: white;
   height: 100vh;
 }
@@ -17,7 +17,7 @@
 }
 
 .App-header {
-  background-color: #0c2975;
+  background-color: #284aa2;
   min-height: 10vh;
   display: flex;
   flex-direction: column;
@@ -36,7 +36,7 @@
   width: 100%;
   height: 50vh;
   padding: 0px 20px;
-  background-color: #0c2975;
+  background-color: #284aa2;
   color: white;
 }
 
@@ -58,22 +58,13 @@ button {
 }
 
 .rating-info-form {
-  border: 1px solid #45595e;
+  border: 1px solid #ffffff;
   border-radius: 5px;
-  margin: auto;
+  /* margin: auto; */
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-gap: 40px;
-  width: 60%;
-  height: 100%;
-  padding: 10px;
-}
-
-@media screen and (max-width: 600px) {
-  .rating-info-form {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    grid-gap: 10px;
-  }
+  padding: 20px;
 }
 
 label {
@@ -102,8 +93,22 @@ form > label {
 }
 
 .form-submit {
-  margin-top: 10px;
-  font-size: 14px;
+  border: 1px solid hsla(0, 0%, 100%, 0.25);
+  background-color: transparent;
+  transition: border-color 0.2s, background-color 0.2s;
+  cursor: pointer;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.form-submit:hover {
+  color: #ffffff;
+  border-color: transparent;
+  background-color: hsla(0, 0%, 100%, 0.25);
+  box-shadow: none;
+  transition: all 0.4s ease 0s;
 }
 
 .errors {
@@ -113,7 +118,6 @@ form > label {
 .get-started-btn {
   border: 1px solid hsla(0, 0%, 100%, 0.25);
   background-color: transparent;
-  -webkit-transition: border-color 0.2s, background-color 0.2s;
   transition: border-color 0.2s, background-color 0.2s;
   cursor: pointer;
   color: white;
@@ -136,6 +140,25 @@ form > label {
   height: 100%;
 }
 
+.select-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin-top: 100px;
+}
+
+.price-card-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
 .overview-header {
   margin: 10px;
 }
@@ -150,14 +173,166 @@ form > label {
   font-size: 14px;
 }
 
-.overview-cell > label {
-  padding: 10px;
+.price-cell {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  font-size: 14px;
+  background-color: rgba(255, 255, 255, 0.571);
+  color: black;
+  border-top-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+  margin-bottom: 20px;
+  box-shadow: 3px 5px 6px -3px #000000;
 }
 
+.price-tag {
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 10px;
+}
+
+.overview-cell > label {
+  padding-bottom: 5px;
+}
+
+.select-cell label {
+  padding-bottom: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.select-cell p {
+  font-weight: normal;
+}
+
+.select-cell select {
+  width: 100%;
+  min-width: 15ch;
+  max-width: 30ch;
+  border: 1px solid #777;
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1.1;
+  background-color: #fff;
+}
+
+.select-cell {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  font-size: 14px;
+  background-color: rgba(255, 255, 255, 0.571);
+  color: black;
+  border-radius: 50px;
+  box-shadow: 3px 5px 6px -3px #000000;
+}
+
+.select-list {
+  list-style-type: none;
+  /* border: 1px solid #eee; */
+  margin: 0;
+  padding: 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  border-radius: 50px;
+}
+
+.select-list:hover {
+  box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2);
+}
+
+.select-list li {
+  border-bottom: 1px solid black;
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.select-list li:last-child {
+  border-bottom: none;
+}
 .overview-header-container {
   padding: 20px;
 }
 
 .overview-header-container > button {
   float: left;
+}
+
+.rating-header-container > button {
+  float: left;
+}
+
+.rating-header {
+  text-align: center;
+  justify-self: center;
+  margin: auto;
+  /* padding: 10px; */
+}
+
+datalist > option {
+  color: white;
+}
+
+::placeholder {
+  color: rgba(255, 255, 255, 0.571);
+}
+
+@media screen and (max-width: 600px) {
+  .rating-info-form {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    grid-gap: 10px;
+  }
+
+  .price-card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .select-container {
+    flex-direction: column;
+    margin: 10px 0px;
+  }
+
+  .select-cell {
+    width: 80%;
+    margin: 10px 0px;
+  }
+
+  .price-cell {
+    width: 80%;
+  }
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  justify-self: center;
+  width: 80%;
+  height: 100%;
+  margin-top: 20px;
+}
+
+.error-input {
+  border: 1px solid red;
+}
+
+.error-span {
+  color: red;
+  font-size: 12px;
+  margin: 0px;
 }

@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { updateQuote } from '../../API/endpoints';
+import PriceCard from './PriceCard';
+import SelectCard from './SelectCard';
 
 export default function QuoteOverview({ quoteInfo, setQuoteInfo, setPage }) {
 
@@ -13,21 +15,23 @@ export default function QuoteOverview({ quoteInfo, setQuoteInfo, setPage }) {
 
 
   // initialize state with the first value in the values array
-  const [varSelections, setVarSelections] = useState({
+  const [varSelections, setSelections] = useState({
     deductible: deductible.values[0],
     asteroid_collision: asteroid_collision.values[0],
   });
 
-
+  // update state with the value of the selection
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setVarSelections({
+    console.log({ name, value });
+    setSelections({
       ...varSelections,
       [name]: Number(value)
     });
   };
 
 
+  // update insurance quote on the backend and update quoteInfo state
   const updateQuotes = async () => {
 
     const data = {
@@ -54,37 +58,17 @@ export default function QuoteOverview({ quoteInfo, setQuoteInfo, setPage }) {
   return (
     <div className="overview">
       <div className="overview-header-container">
-        <button className="get-started-btn" onClick={() => setPage('rating')}>Back</button>
+
         <h1 className="overview-header">Quote Overview Page</h1>
       </div>
-      <div className="overview-container">
-        <div className="overview-cell">
-          <div>${variable_selections.asteroid_collision.toLocaleString('us-EN')}
-          </div>
-          <h4> Asteroid Collision Selection </h4>
-        </div>
-        <div className="overview-cell">
-          <div>${premium.toLocaleString('us-EN')}
-          </div>
-          <h4> Premium</h4>
-        </div>
-        <div className="overview-cell">
-          <div>${variable_selections.deductible.toLocaleString('us-EN')}
-          </div>
-          <h4> Deductible</h4>
-        </div>
+      <div className="price-card-container">
+        <PriceCard data={variable_selections.asteroid_collision} text='Asteroid Collision' />
+        <PriceCard data={premium} text="Premium" />
+        <PriceCard data={variable_selections.deductible} text="Deductible" />
       </div>
-      <div className="overview-container">
+      <div className="select-container">
         {selectData.map((data, i) => (
-          <div className="overview-cell">
-            <label htmlFor="asteroid-collision-select">{data.title}</label>
-            <select id="asteroid-collision-select" name="asteroid_collision" onChange={(e) => handleChange(e)}>
-              {data.values.map((value) => (
-                <option key={value} value={value}>${value.toLocaleString('en-US')}</option>
-              ))}
-            </select>
-            <p>{data.description}</p>
-          </div>
+          <SelectCard key={i} data={data} handleChange={handleChange} />
         ))}
       </div>
     </div >
