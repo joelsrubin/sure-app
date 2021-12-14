@@ -23,7 +23,7 @@ export default function QuoteOverview({ quoteInfo, setQuoteInfo, setPage }) {
   // update state with the value of the selection
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log({ name, value });
+
     setSelections({
       ...varSelections,
       [name]: Number(value)
@@ -58,8 +58,7 @@ export default function QuoteOverview({ quoteInfo, setQuoteInfo, setPage }) {
   return (
     <div className="overview">
       <div className="overview-header-container">
-
-        <h1 className="overview-header">Quote Overview Page</h1>
+        <h1 className="overview-header">Quote Overview</h1>
       </div>
       <div className="price-card-container">
         <PriceCard data={variable_selections.asteroid_collision} text='Asteroid Collision' />

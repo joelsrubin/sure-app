@@ -1,15 +1,21 @@
-### Build a React application with the following two screens:
+## Build a React application with the following two screens:
 
 - [x] 1. Rating Information
 - [x] 2. Quote Overview
 
-### Running the App:
+## Running the App:
 
-After cloning the repo, in the terminal run the following commands:
+After cloning the repo, cd into the directory and, in the terminal, run the following commands:
 
 1. `npm install`
 2. `npm run build`
 3. `npm run dev`
+
+To run the test suite, run the following in the terminal:
+
+4. `npm run test`
+
+## Project Requirements:
 
 These two screens will hit our API described below to generate a quote for the customer.
 
@@ -45,7 +51,7 @@ These two screens will hit our API described below to generate a quote for the c
 
 - [x] **(Required)** The rating address 5-digit postal code.
 
-Create a form with a `<select>` dropdown for each of the policy coverage variables. This allows the user to select a preferred option for each variable.
+### Create a form with a `<select>` dropdown for each of the policy coverage variables. This allows the user to select a preferred option for each variable.
 
 - [x] `deductible`
 

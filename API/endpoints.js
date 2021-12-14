@@ -8,10 +8,7 @@ export async function getQuote(data) {
       'Content-Type': 'application/json',
     },
   }).then((res) => res.json());
-
-
   if (response.errors) {
-
     return {
       status: 'error',
       errors: response.errors

@@ -1,9 +1,17 @@
-import { stateAbbreviations } from '../../utils';
+import { stateAbbreviations, stateAbbreviationsValidate } from '../../utils';
 
-export default function Form({ formData, formHandler, submitHandler, submitting, errors }) {
+export default function Form({ formData, formHandler, submitHandler, submitting, errors, setErrors }) {
   const { first_name, last_name, address } = formData;
   const { line_1, line_2, city, region, postal } = address;
 
+  const validateState = (e) => {
+    // validate formData on blur
+    const { name, value } = e.target;
+    const validRegion = stateAbbreviationsValidate(value.toUpperCase());
+    if (!validRegion) {
+      setErrors({ region: 'Invalid region' });
+    }
+  };
 
 
   return (
@@ -32,9 +40,9 @@ export default function Form({ formData, formHandler, submitHandler, submitting,
             <input type="text" name="city" required value={city} onChange={(e) => formHandler(e)} />
           </div>
           <div className="form-cell">
-            <label htmlFor="region">Region</label>
-            <input className={errors.region && 'error-input'} type="text" name="region" value={region} required maxLength="2" onChange={(e) => formHandler(e)} placeholder="Provide State Abbrev" />
-            {errors.region && <span className="error-span">Invalid Zip Code!</span>}
+            <label htmlFor="region">State</label>
+            <input className={errors.region && 'error-input'} type="text" name="region" value={region} required maxLength="2" onChange={(e) => formHandler(e)} placeholder="state abbreviation" onBlur={(e) => validateState(e)} />
+            {errors.region && <span className="error-span">Invalid State Abbreviation!</span>}
           </div>
           <div className="form-cell">
             <label htmlFor="postal">Zip Code</label>

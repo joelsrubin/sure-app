@@ -4,7 +4,7 @@ export default function PriceCard({ data, text }) {
     <div className="price-cell">
       <div className="price-tag">${data.toLocaleString('us-EN')}
       </div>
-      <h4 className="price-text"> {text}</h4>
+      <h4 className="price-text" id={text}> {text}</h4>
     </div>
   );
 }
