@@ -58,7 +58,7 @@ export default function QuoteOverview({ quoteInfo, setQuoteInfo, setPage }) {
   return (
     <div className="overview">
       <div className="overview-header-container">
-        <h1 className="overview-header">Quote Overview</h1>
+        <h1 className="overview-header" >Quote Overview</h1>
       </div>
       <div className="price-card-container">
         <PriceCard data={variable_selections.asteroid_collision} text='Asteroid Collision' />

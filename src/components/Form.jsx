@@ -41,7 +41,7 @@ export default function Form({ formData, formHandler, submitHandler, submitting,
           </div>
           <div className="form-cell">
             <label htmlFor="region">State</label>
-            <input className={errors.region && 'error-input'} type="text" name="region" value={region} required maxLength="2" onChange={(e) => formHandler(e)} placeholder="state abbreviation" onBlur={(e) => validateState(e)} />
+            <input className={errors.region && 'error-input'} type="text" name="region" value={region} maxLength="2" onChange={(e) => formHandler(e)} placeholder="state abbreviation" onBlur={(e) => validateState(e)} />
             {errors.region && <span className="error-span">Invalid State Abbreviation!</span>}
           </div>
           <div className="form-cell">

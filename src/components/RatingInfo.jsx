@@ -25,9 +25,15 @@ export default function RatingInfo({ setQuoteInfo, setPage }) {
 
   // submit formData and navigate to quote overview page
   const submitHandler = async (e) => {
+
     setSubmitting(true);
     e.preventDefault();
-
+    const validRegion = stateAbbreviationsValidate(region.toUpperCase());
+    if (!validRegion) {
+      setErrors({ region: 'Invalid region' });
+      setSubmitting(false);
+      return;
+    }
     const res = await getQuote(formData);
 
     // handle errors from API
