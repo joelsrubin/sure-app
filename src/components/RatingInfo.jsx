@@ -101,11 +101,11 @@ export default function RatingInfo({ setQuoteInfo, setPage }) {
           </div>
           <div className="form-cell">
             <label htmlFor="region">Region</label>
-            <input type="text" name="region" required value={region} maxLength="2" onChange={(e) => addressHandler(e)} />
+            <input type="text" name="region" required value={region} maxLength="2" onChange={(e) => addressHandler(e)} placeholder="Provide a US State Abbreviation" />
           </div>
           <div className="form-cell">
             <label htmlFor="postal">Zip Code</label>
-            <input type="number" name="postal" required value={postal} onChange={(e) => addressHandler(e)} />
+            <input type="number" name="postal" required value={postal} minLength="5" maxLength="5" onChange={(e) => addressHandler(e)} />
           </div>
         </div>
         <button className="form-submit">{submitting ? 'Submitting...' : 'Submit!'}</button>
