@@ -306,18 +306,9 @@ datalist > option {
   position: relative;
 }
 
-.error-zip {
-  color: red;
-  font-size: 12px;
-  position: absolute;
-  top: 520px;
-}
-
 .error-span {
   color: red;
   font-size: 12px;
-  position: absolute;
-  top: 412px;
 }
 
 .select-button {
@@ -365,20 +356,6 @@ datalist > option {
   .price-cell {
     width: 80%;
     max-width: 300px;
-  }
-
-  .error-span {
-    color: red;
-    font-size: 12px;
-    position: absolute;
-    top: 582px;
-  }
-
-  .error-zip {
-    color: red;
-    font-size: 12px;
-    position: absolute;
-    top: 662px;
   }
 }
 
