@@ -34,13 +34,13 @@ export default function Form({ formData, formHandler, submitHandler, submitting,
           <div className="form-cell">
             <label htmlFor="region">State</label>
             <input className={errors.region && 'error-input'} type="text" name="region" value={region} maxLength="2" onChange={formHandler} placeholder="state abbreviation" onBlur={(e) => validateState(e.target.value)} />
-            <span className="error-span" style={!errors.region ? { visibility: 'hidden' } : { visibility: 'visible' }}>Invalid State Abbreviation!</span>
+            <span className="error-region" style={!errors.region ? { visibility: 'hidden' } : { visibility: 'visible' }}>Invalid State Abbreviation!</span>
           </div>
 
           <div className="form-cell">
             <label htmlFor="postal">Zip Code</label>
             <input className={errors.postal && 'error-zip-input'} type="number" name="postal" required value={postal} minLength="5" maxLength="5" onChange={formHandler} onBlur={(e) => validatePostal(e.target.value)} />
-            <span className="error-span" style={!errors.postal ? { visibility: 'hidden' } : { visibility: 'visible' }}>Invalid Zip Code!</span>
+            <span className="error-postal" style={!errors.postal ? { visibility: 'hidden' } : { visibility: 'visible' }}>Invalid Zip Code!</span>
           </div>
         </div>
         <button className="form-submit">{submitting ? 'Submitting...' : 'Submit!'}</button>

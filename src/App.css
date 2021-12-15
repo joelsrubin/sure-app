@@ -306,7 +306,11 @@ datalist > option {
   position: relative;
 }
 
-.error-span {
+.error-postal {
+  color: red;
+  font-size: 12px;
+}
+.error-region {
   color: red;
   font-size: 12px;
 }

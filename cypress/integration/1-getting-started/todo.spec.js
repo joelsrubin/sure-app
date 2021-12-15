@@ -18,16 +18,16 @@ describe('page navigation and form validation', () => {
     cy.get('input[name="line_1"]').type('123 Main St');
     cy.get('input[name="city"]').type('Anytown');
     cy.get('input[name="region"]').type('AA').blur();
-    cy.get('.error-span').should('contain', 'Invalid State Abbreviation!');
+    cy.get('.error-region').should('contain', 'Invalid State Abbreviation!');
     cy.get('input[name="postal"]').type('abc').blur();
-    cy.get('.error-zip').should('contain', 'Invalid Zip Code!');
+    cy.get('.error-postal').should('contain', 'Invalid Zip Code!');
   });
 
   it('handles resetting errors', () => {
     cy.get('input[name="region').clear().type('NY').blur();
-    cy.get('.error-span').should('not.exist');
+    cy.get('.error-region').should('have.css', 'visibility', 'hidden');
     cy.get('input[name="postal"]').clear().type('12345').blur();
-    cy.get('.error-zip').should('not.exist');
+    cy.get('.error-postal').should('have.css', 'visibility', 'hidden');
   });
 
   it('handles form submission and navigation', () => {
@@ -43,7 +43,7 @@ describe('page navigation and form validation', () => {
         cy.get('select')
           .first()
           .select(1);
-        cy.wait(1000);
+        cy.wait(3000);
         cy.get('.price-tag')
           .first()
           .invoke('text')
