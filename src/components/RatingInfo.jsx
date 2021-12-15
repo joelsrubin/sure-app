@@ -1,6 +1,6 @@
-import { getQuote } from '../../API/endpoints';
+import { getQuote } from '../api';
 import { useState } from 'react';
-import { stateAbbreviationsValidate } from '../../utils';
+import { stateAbbreviationsValidate } from '../utils';
 import { postcodeValidator } from 'postcode-validator';
 import Form from './Form';
 
@@ -26,8 +26,8 @@ export default function RatingInfo({ setQuoteInfo, setPage }) {
 
   const validateState = (val) => {
     // validate state formData
-    const validRegion = stateAbbreviationsValidate(val.toUpperCase());
-    if (!validRegion) {
+    setErrors({ ...errors, region: null });
+    if (!stateAbbreviationsValidate(val.toUpperCase())) {
       setErrors({
         ...errors,
         region: 'Invalid region'
@@ -40,8 +40,8 @@ export default function RatingInfo({ setQuoteInfo, setPage }) {
 
   const validatePostal = (val) => {
     // validate post code formData
-    const validPostal = postcodeValidator(val, 'US');
-    if (!validPostal) {
+    setErrors({ ...errors, postal: null });
+    if (!postcodeValidator(val, 'US')) {
       setErrors({
         ...errors,
         postal: 'Invalid postal code'
@@ -56,21 +56,20 @@ export default function RatingInfo({ setQuoteInfo, setPage }) {
   const submitHandler = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    const validRegion = validateState(region);
-    const validPostal = validatePostal(postal);
-    if (!validRegion || !validPostal) return;
 
-    const res = await getQuote(formData);
-    // handle errors from API
-    if (res.errors) {
-      setErrors({ serverError: res.errors });
-      setSubmitting(false);
-    } else {
-      // set quote info and navigate to quote overview page
-      setSubmitting(false);
-      setFormData(initialState);
-      setQuoteInfo(res.data);
-      setPage('quote');
+    if (validateState(region) && validatePostal(postal)) {
+      const res = await getQuote(formData);
+      // handle errors from API
+      if (res.errors) {
+        setErrors({ serverError: res.errors });
+        setSubmitting(false);
+      } else {
+        // set quote info and navigate to quote overview page
+        setSubmitting(false);
+        setFormData(initialState);
+        setQuoteInfo(res.data);
+        setPage('quote');
+      }
     }
   };
 

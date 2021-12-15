@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { updateQuote } from '../../API/endpoints';
+import { updateQuote } from '../api';
 import PriceCard from './PriceCard';
 import SelectCard from './SelectCard';
 
@@ -7,15 +7,13 @@ export default function QuoteOverview({ quoteInfo, setQuoteInfo, setPage }) {
 
   const { quote } = quoteInfo;
 
-  // destructuring quote object
   const { policy_holder, premium, quoteId, rating_address, variable_options, variable_selections } = quote;
 
-  // destructuring variable_options object
   const { asteroid_collision, deductible } = variable_options;
 
 
   // initialize state with the first value in the values array
-  const [varSelections, setSelections] = useState({
+  const [varSelections, setVarSelections] = useState({
     deductible: deductible.values[0],
     asteroid_collision: asteroid_collision.values[0],
   });
@@ -24,7 +22,7 @@ export default function QuoteOverview({ quoteInfo, setQuoteInfo, setPage }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setSelections({
+    setVarSelections({
       ...varSelections,
       [name]: Number(value)
     });
@@ -38,14 +36,11 @@ export default function QuoteOverview({ quoteInfo, setQuoteInfo, setPage }) {
       quoteId,
       rating_address,
       policy_holder,
-      variable_selections: {
-        deductible: varSelections.deductible,
-        asteroid_collision: varSelections.asteroid_collision
-      }
+      variable_selections: varSelections
     };
     const res = await updateQuote(data);
     setQuoteInfo(res.data);
-    return res;
+
   };
 
   useEffect(() => {
@@ -53,7 +48,6 @@ export default function QuoteOverview({ quoteInfo, setQuoteInfo, setPage }) {
   }, [varSelections]);
 
 
-  const selectData = [variable_options.asteroid_collision, variable_options.deductible];
 
   return (
     <div className="overview">
@@ -66,9 +60,8 @@ export default function QuoteOverview({ quoteInfo, setQuoteInfo, setPage }) {
         <PriceCard data={variable_selections.deductible} text="Deductible" />
       </div>
       <div className="select-container">
-        {selectData.map((data, i) => (
-          <SelectCard key={i} data={data} handleChange={handleChange} />
-        ))}
+        <SelectCard data={variable_options.asteroid_collision} handleChange={handleChange} />
+        <SelectCard data={variable_options.deductible} handleChange={handleChange} />
       </div>
     </div >
   );

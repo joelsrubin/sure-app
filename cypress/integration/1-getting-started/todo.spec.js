@@ -12,18 +12,25 @@ describe('page navigation and form validation', () => {
     cy.get('.overview-header').should('contain', 'Rating Information');
   });
 
-  it('handles form validation', () => {
+  it('handles zip code and state validation', () => {
     cy.get('input[name="first_name"]').type('John');
     cy.get('input[name="last_name"]').type('Smith');
     cy.get('input[name="line_1"]').type('123 Main St');
     cy.get('input[name="city"]').type('Anytown');
     cy.get('input[name="region"]').type('AA').blur();
-    cy.get('.error-span').should('contain', 'Invalid State Abbreviation!');
+    cy.get('.error-region').should('contain', 'Invalid State Abbreviation!');
+    cy.get('input[name="postal"]').type('abc').blur();
+    cy.get('.error-postal').should('contain', 'Invalid Zip Code!');
   });
 
-  it('handles form submission and navgation', () => {
-    cy.get('input[name="region').clear().type('AA');
-    cy.get('input[name="postal"]').type('12345');
+  it('handles resetting errors', () => {
+    cy.get('input[name="region').clear().type('NY').blur();
+    cy.get('.error-region').should('have.css', 'visibility', 'hidden');
+    cy.get('input[name="postal"]').clear().type('12345').blur();
+    cy.get('.error-postal').should('have.css', 'visibility', 'hidden');
+  });
+
+  it('handles form submission and navigation', () => {
     cy.get('.form-submit').click();
     cy.get('.overview-header').should('contain', 'Quote Overview');
   });
@@ -36,7 +43,7 @@ describe('page navigation and form validation', () => {
         cy.get('select')
           .first()
           .select(1);
-        cy.wait(1000);
+        cy.wait(3000);
         cy.get('.price-tag')
           .first()
           .invoke('text')
@@ -48,21 +55,3 @@ describe('page navigation and form validation', () => {
   });
 });
 
-// describe('endpoints', () => {
-//   const data = {
-//     first_name: "John",
-//     last_name: "Smith",
-//     address: {
-//       line_1: "123 Main St",
-//       line_2: "",
-//       city: "Anytown",
-//       region: "NY",
-//       postal: "12345"
-//     }
-//   };
-//   it('GET request returns the initial quote object', () => {
-//     cy.request('POST', 'https://fed-challenge-api.sure.now.sh/api/v1/quotes', data).then((response) => {
-//       console.log(response);
-//     });
-//   });
-// });

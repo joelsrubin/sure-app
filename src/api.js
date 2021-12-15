@@ -1,9 +1,10 @@
+const API = 'https://fed-challenge-api.sure.now.sh/api/v1/quotes';
+
 export async function getQuote(data) {
-  const API = 'https://fed-challenge-api.sure.now.sh/api/v1/quotes';
 
   const response = await fetch(API, {
     method: 'POST',
-    body: JSON.stringify({ ...data }),
+    body: JSON.stringify(data),
     headers: {
       'Content-Type': 'application/json',
     },
@@ -22,9 +23,8 @@ export async function getQuote(data) {
 
 export async function updateQuote(data) {
   const { quoteId } = data;
-  const API = `https://fed-challenge-api.sure.now.sh/api/v1/quotes/${quoteId}`;
 
-  const response = await fetch(API, {
+  const response = await fetch(`${API}/${quoteId}`, {
     method: 'PUT',
     body: JSON.stringify({
       quote: { ...data }
@@ -46,4 +46,4 @@ export async function updateQuote(data) {
   };
 
 
-}
+};
