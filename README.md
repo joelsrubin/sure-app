@@ -1,10 +1,12 @@
 ## Build a React application with the following two screens:
 
 - [x] 1. Rating Information
-     <img height="572" alt="Screen Shot 2021-12-14 at 3 23 59 PM" src="https://user-images.githubusercontent.com/68345201/146083015-3fb68ea6-0b15-4700-81db-230fd37f802f.png">
+
+<img height="572" alt="Screen Shot 2021-12-14 at 3 23 59 PM" src="https://user-images.githubusercontent.com/68345201/146083015-3fb68ea6-0b15-4700-81db-230fd37f802f.png">
 
 - [x] 2. Quote Overview
-     <img width="500" alt="Screen Shot 2021-12-14 at 3 24 09 PM" src="https://user-images.githubusercontent.com/68345201/146082992-2873bb0b-dc15-4901-9716-c0e24eb98260.png">
+
+<img width="500" alt="Screen Shot 2021-12-14 at 3 24 09 PM" src="https://user-images.githubusercontent.com/68345201/146082992-2873bb0b-dc15-4901-9716-c0e24eb98260.png">
 
 ## View the App:
 
