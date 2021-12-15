@@ -1,17 +1,10 @@
 import { stateAbbreviations, stateAbbreviationsValidate } from '../../utils';
+import { postcodeValidator } from 'postcode-validator';
 
-export default function Form({ formData, formHandler, submitHandler, submitting, errors, setErrors }) {
+
+export default function Form({ formData, formHandler, submitHandler, submitting, errors, validateState, validatePostal }) {
   const { first_name, last_name, address } = formData;
   const { line_1, line_2, city, region, postal } = address;
-
-  const validateState = (e) => {
-    // validate formData on blur
-    const { name, value } = e.target;
-    const validRegion = stateAbbreviationsValidate(value.toUpperCase());
-    if (!validRegion) {
-      setErrors({ region: 'Invalid region' });
-    }
-  };
 
 
   return (
@@ -28,11 +21,11 @@ export default function Form({ formData, formHandler, submitHandler, submitting,
             <input type="text" name="last_name" value={last_name} required onChange={(e) => formHandler(e)} />
           </div>
           <div className="form-cell">
-            <label htmlFor="line_1">Line 1</label>
+            <label htmlFor="line_1">Address (Line 1)</label>
             <input type="text" name="line_1" value={line_1} required onChange={(e) => formHandler(e)} />
           </div>
           <div className="form-cell">
-            <label htmlFor="line_2">Line 2</label>
+            <label htmlFor="line_2">Address (Line 2)</label>
             <input type="text" placeholder="optional" name="line_2" value={line_2} onChange={(e) => formHandler(e)} />
           </div>
           <div className="form-cell">
@@ -41,13 +34,13 @@ export default function Form({ formData, formHandler, submitHandler, submitting,
           </div>
           <div className="form-cell">
             <label htmlFor="region">State</label>
-            <input className={errors.region && 'error-input'} type="text" name="region" value={region} maxLength="2" onChange={(e) => formHandler(e)} placeholder="state abbreviation" onBlur={(e) => validateState(e)} />
+            <input className={errors.region && 'error-input'} type="text" name="region" value={region} maxLength="2" onChange={(e) => formHandler(e)} placeholder="state abbreviation" onBlur={(e) => validateState(e.target.value)} />
             {errors.region && <span className="error-span">Invalid State Abbreviation!</span>}
           </div>
           <div className="form-cell">
             <label htmlFor="postal">Zip Code</label>
-            <input type="number" name="postal" required value={postal} minLength="5" maxLength="5" onChange={(e) => formHandler(e)} />
-
+            <input className={errors.postal && 'error-zip-input'} type="number" name="postal" required value={postal} minLength="5" maxLength="5" onChange={(e) => formHandler(e)} onBlur={(e) => validatePostal(e.target.value)} />
+            {errors.postal && <span className="error-zip">Invalid Zip Code!</span>}
           </div>
         </div>
 

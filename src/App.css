@@ -301,6 +301,18 @@ datalist > option {
   position: relative;
 }
 
+.error-zip-input {
+  border: 1px solid red;
+  position: relative;
+}
+
+.error-zip {
+  color: red;
+  font-size: 12px;
+  position: absolute;
+  top: 520px;
+}
+
 .error-span {
   color: red;
   font-size: 12px;
@@ -356,5 +368,12 @@ datalist > option {
     font-size: 12px;
     position: absolute;
     top: 582px;
+  }
+
+  .error-zip {
+    color: red;
+    font-size: 12px;
+    position: absolute;
+    top: 662px;
   }
 }

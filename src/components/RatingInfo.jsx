@@ -1,6 +1,7 @@
 import { getQuote } from '../../API/endpoints';
 import { useState } from 'react';
 import { stateAbbreviationsValidate } from '../../utils';
+import { postcodeValidator } from 'postcode-validator';
 import Form from './Form';
 
 
@@ -23,25 +24,48 @@ export default function RatingInfo({ setQuoteInfo, setPage }) {
   const { first_name, last_name, address } = formData;
   const { line_1, line_2, city, region, postal } = address;
 
+  const validateState = (val) => {
+    // validate state formData
+    const validRegion = stateAbbreviationsValidate(val.toUpperCase());
+    if (!validRegion) {
+      setErrors({
+        ...errors,
+        region: 'Invalid region'
+      });
+      setSubmitting(false);
+      return false;
+    }
+    return true;
+  };
+
+  const validatePostal = (val) => {
+    // validate post code formData
+    const validPostal = postcodeValidator(val, 'US');
+    if (!validPostal) {
+      setErrors({
+        ...errors,
+        postal: 'Invalid postal code'
+      });
+      setSubmitting(false);
+      return false;
+    }
+    return true;
+  };
+
   // submit formData and navigate to quote overview page
   const submitHandler = async (e) => {
-
-    setSubmitting(true);
     e.preventDefault();
-    const validRegion = stateAbbreviationsValidate(region.toUpperCase());
-    if (!validRegion) {
-      setErrors({ region: 'Invalid region' });
-      setSubmitting(false);
-      return;
-    }
-    const res = await getQuote(formData);
+    setSubmitting(true);
+    const validRegion = validateState(region);
+    const validPostal = validatePostal(postal);
+    if (!validRegion || !validPostal) return;
 
+    const res = await getQuote(formData);
     // handle errors from API
     if (res.errors) {
-      setErrors(res.errors);
+      setErrors({ serverError: res.errors });
       setSubmitting(false);
     } else {
-
       // set quote info and navigate to quote overview page
       setSubmitting(false);
       setFormData(initialState);
@@ -52,7 +76,7 @@ export default function RatingInfo({ setQuoteInfo, setPage }) {
 
   // update formData state on input change
   const formHandler = (e) => {
-    setErrors({});
+
     const { name, value } = e.target;
     if (name === 'first_name' || name === 'last_name') {
       setFormData({
@@ -81,7 +105,8 @@ export default function RatingInfo({ setQuoteInfo, setPage }) {
       <div className="overview-header-container">
         <h1 className="overview-header">Rating Information</h1>
       </div>
-      <Form formHandler={formHandler} formData={formData} submitHandler={submitHandler} submitting={submitting} errors={errors} setErrors={setErrors} />
+      <Form formHandler={formHandler} formData={formData} submitHandler={submitHandler} submitting={submitting} errors={errors} validateState={validateState} validatePostal={validatePostal} />
+      {errors.serverError && <p className="error">{formatErrors(errors.serverError)}</p>}
     </div>
   );
 };
