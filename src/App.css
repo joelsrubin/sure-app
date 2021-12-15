@@ -339,6 +339,10 @@ datalist > option {
     grid-gap: 10px;
   }
 
+  .rating-info-form input {
+    padding: 10px 50px;
+  }
+
   .price-card-container {
     display: flex;
     flex-direction: column;
@@ -376,4 +380,10 @@ datalist > option {
     position: absolute;
     top: 662px;
   }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
